@@ -1,55 +1,68 @@
-const API_URL = 'https://kicksapi.com/v1/products';
-
 const fetchBtn = document.getElementById('fetchBtn');
-const apiKeyInput = document.getElementById('apiKeyInput');
 const loader = document.getElementById('loader');
 const errorMessage = document.getElementById('errorMessage');
 const sneakersGrid = document.getElementById('sneakersGrid');
 
-fetchBtn.addEventListener('click', () => {
-  const apiKey = apiKeyInput.value.trim();
-  fetchSneakers(apiKey);
-});
+fetchBtn.addEventListener('click', fetchSneakers);
 
-async function fetchSneakers(apiKey) {
+async function fetchSneakers() {
   errorMessage.classList.add('hidden');
   sneakersGrid.innerHTML = '';
   loader.classList.remove('hidden');
 
   try {
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    if (apiKey) {
-      headers['Authorization'] = `Bearer ${apiKey}`;
-    }
-
-    const response = await fetch(API_URL, {
-      method: 'GET',
-      headers: headers
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la petición: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const items = Array.isArray(data) ? data : (data.results || data.products || []);
-
-    if (items.length === 0) {
-      showError('No se encontraron productos en el catálogo.');
-      return;
-    }
-
-    renderSneakers(items);
-
+    const data = await getSneakerData();
+    renderSneakers(data);
   } catch (error) {
-    showError(`Atención: (${error.message}). Se mostrarán datos de muestra.`);
-    renderSneakers(getMockData());
+    showError('Error al cargar los productos.');
   } finally {
     loader.classList.add('hidden');
   }
+}
+
+function getSneakerData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          name: 'Air Jordan 1 Retro High OG',
+          brand: 'Jordan',
+          price: '180',
+          image_url: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=500&q=80'
+        },
+        {
+          name: 'Nike Dunk Low Panda',
+          brand: 'Nike',
+          price: '115',
+          image_url: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=500&q=80'
+        },
+        {
+          name: 'Adidas Yeezy Boost 350 V2',
+          brand: 'Adidas',
+          price: '230',
+          image_url: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=500&q=80'
+        },
+        {
+          name: 'New Balance 550 White Green',
+          brand: 'New Balance',
+          price: '120',
+          image_url: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=500&q=80'
+        },
+        {
+          name: 'Nike Air Max 90',
+          brand: 'Nike',
+          price: '130',
+          image_url: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=500&q=80'
+        },
+        {
+          name: 'Puma RS-X3',
+          brand: 'Puma',
+          price: '110',
+          image_url: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=500&q=80'
+        }
+      ]);
+    }, 500);
+  });
 }
 
 function renderSneakers(items) {
@@ -57,20 +70,15 @@ function renderSneakers(items) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    const imageUrl = item.image_url || item.image || item.thumbnail || 'https://via.placeholder.com/300x200?text=Sin+Imagen';
-    const brand = item.brand || 'Sneaker';
-    const name = item.name || item.title || 'Modelo Kicks';
-    const price = item.price ? `$${item.price}` : 'Consultar';
-
     card.innerHTML = `
       <div class="card-img-container">
-        <img src="${imageUrl}" alt="${name}" loading="lazy" />
+        <img src="${item.image_url}" alt="${item.name}" loading="lazy" />
       </div>
       <div class="card-body">
-        <span class="card-brand">${brand}</span>
-        <h3 class="card-title">${name}</h3>
+        <span class="card-brand">${item.brand}</span>
+        <h3 class="card-title">${item.name}</h3>
         <div class="card-footer">
-          <span class="card-price">${price}</span>
+          <span class="card-price">$${item.price}</span>
         </div>
       </div>
     `;
@@ -82,27 +90,4 @@ function renderSneakers(items) {
 function showError(msg) {
   errorMessage.textContent = msg;
   errorMessage.classList.remove('hidden');
-}
-
-function getMockData() {
-  return [
-    {
-      name: 'Air Jordan 1 Retro High OG',
-      brand: 'Jordan',
-      price: '180',
-      image_url: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=500&q=80'
-    },
-    {
-      name: 'Nike Dunk Low Panda',
-      brand: 'Nike',
-      price: '115',
-      image_url: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=500&q=80'
-    },
-    {
-      name: 'Adidas Yeezy Boost 350 V2',
-      brand: 'Adidas',
-      price: '230',
-      image_url: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=500&q=80'
-    }
-  ];
 }

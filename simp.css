@@ -36,20 +36,8 @@
   
   .controls {
     display: flex;
-    gap: 1rem;
     justify-content: center;
     margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-  
-  .controls input {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background-color: #1e293b;
-    color: #fff;
-    width: 320px;
-    max-width: 100%;
   }
   
   .btn-primary {

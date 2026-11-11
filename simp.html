@@ -3,29 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo de Sneakers - KicksAPI</title>
+  <title>Catálogo de Sneakers</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-container">
     <header class="header">
-      <h1>KicksAPI Sneakers</h1>
+      <h1>Kicks Sneakers</h1>
       <p>Consulta el catálogo y precios actualizados</p>
     </header>
 
     <section class="controls">
-      <input 
-        type="password" 
-        id="apiKeyInput" 
-        placeholder="Tu API Key de KicksAPI (opcional si usas pruebas)" 
-      />
       <button id="fetchBtn" class="btn-primary">Obtener</button>
     </section>
 
     <div id="loader" class="loader hidden">Cargando catálogo...</div>
-
     <div id="errorMessage" class="error-msg hidden"></div>
-
     <main id="sneakersGrid" class="grid-container"></main>
   </div>
 
