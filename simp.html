@@ -9,12 +9,14 @@
 
   <div class="contenedor">
     <h1>Kicks Sneakers</h1>
-    <p>Consulta el catálogo y precios actualizados</p>
+    <p>Busca zapatillas por marca o modelo</p>
 
-    <!-- Botón con evento directo al hacer clic -->
-    <button onclick="obtenerZapatillas()">Obtener</button>
+    <!-- Campo de búsqueda + Botón -->
+    <div class="caja-busqueda">
+      <input type="text" id="buscador" placeholder="Escribe marca o modelo (ej. Nike, Jordan)...">
+      <button onclick="obtenerZapatillas()">Obtener</button>
+    </div>
 
-    <!-- Contenedor donde se mostrarán los productos -->
     <div id="catalogo" class="grid-zapatillas"></div>
   </div>
 
