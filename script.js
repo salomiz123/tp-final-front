@@ -17,8 +17,8 @@ function obtenerZapatillas() {
         return;
       }
 
-      for (const i = 0; i < productos.length; i++) {
-        const item = productos[i];
+      for (var i = 0; i < productos.length; i++) {
+        var item = productos[i];
 
         contenedor.innerHTML += 
           '<div class="tarjeta">' +
