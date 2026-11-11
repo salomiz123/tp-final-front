@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo de Sneakers</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Kicks Sneakers</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-container">
-    <header class="header">
-      <h1>Kicks Sneakers</h1>
-      <p>Consulta el catálogo y precios actualizados</p>
-    </header>
 
-    <section class="controls">
-      <button id="fetchBtn" class="btn-primary">Obtener</button>
-    </section>
+  <div class="contenedor">
+    <h1>Kicks Sneakers</h1>
+    <p>Consulta el catálogo y precios actualizados</p>
 
-    <div id="loader" class="loader hidden">Cargando catálogo...</div>
-    <div id="errorMessage" class="error-msg hidden"></div>
-    <main id="sneakersGrid" class="grid-container"></main>
+    <!-- Botón con evento directo al hacer clic -->
+    <button onclick="obtenerZapatillas()">Obtener</button>
+
+    <!-- Contenedor donde se mostrarán los productos -->
+    <div id="catalogo" class="grid-zapatillas"></div>
   </div>
 
   <script src="script.js"></script>

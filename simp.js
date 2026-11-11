@@ -1,93 +1,46 @@
-const fetchBtn = document.getElementById('fetchBtn');
-const loader = document.getElementById('loader');
-const errorMessage = document.getElementById('errorMessage');
-const sneakersGrid = document.getElementById('sneakersGrid');
-
-fetchBtn.addEventListener('click', fetchSneakers);
-
-async function fetchSneakers() {
-  errorMessage.classList.add('hidden');
-  sneakersGrid.innerHTML = '';
-  loader.classList.remove('hidden');
-
-  try {
-    const data = await getSneakerData();
-    renderSneakers(data);
-  } catch (error) {
-    showError('Error al cargar los productos.');
-  } finally {
-    loader.classList.add('hidden');
+// Datos básicos en un arreglo simple
+var zapatillas = [
+    {
+      nombre: "Air Jordan 1 Retro",
+      marca: "Jordan",
+      precio: "$180",
+      imagen: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400"
+    },
+    {
+      nombre: "Nike Dunk Low",
+      marca: "Nike",
+      precio: "$115",
+      imagen: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400"
+    },
+    {
+      nombre: "Adidas Yeezy Boost",
+      marca: "Adidas",
+      precio: "$230",
+      imagen: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=400"
+    },
+    {
+      nombre: "Nike Air Max 90",
+      marca: "Nike",
+      precio: "$130",
+      imagen: "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=400"
+    }
+  ];
+  
+  // Función básica que ejecuta el botón "Obtener"
+  function obtenerZapatillas() {
+    var contenedor = document.getElementById("catalogo");
+    contenedor.innerHTML = ""; // Vacía el catálogo previo
+  
+    // Bucle for tradicional
+    for (var i = 0; i < zapatillas.length; i++) {
+      var item = zapatillas[i];
+  
+      contenedor.innerHTML += 
+        '<div class="tarjeta">' +
+          '<img src="' + item.imagen + '" alt="' + item.nombre + '">' +
+          '<span class="marca">' + item.marca + '</span>' +
+          '<h3>' + item.nombre + '</h3>' +
+          '<div class="precio">' + item.precio + '</div>' +
+        '</div>';
+    }
   }
-}
-
-function getSneakerData() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          name: 'Air Jordan 1 Retro High OG',
-          brand: 'Jordan',
-          price: '180',
-          image_url: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=500&q=80'
-        },
-        {
-          name: 'Nike Dunk Low Panda',
-          brand: 'Nike',
-          price: '115',
-          image_url: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=500&q=80'
-        },
-        {
-          name: 'Adidas Yeezy Boost 350 V2',
-          brand: 'Adidas',
-          price: '230',
-          image_url: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=500&q=80'
-        },
-        {
-          name: 'New Balance 550 White Green',
-          brand: 'New Balance',
-          price: '120',
-          image_url: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=500&q=80'
-        },
-        {
-          name: 'Nike Air Max 90',
-          brand: 'Nike',
-          price: '130',
-          image_url: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=500&q=80'
-        },
-        {
-          name: 'Puma RS-X3',
-          brand: 'Puma',
-          price: '110',
-          image_url: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=500&q=80'
-        }
-      ]);
-    }, 500);
-  });
-}
-
-function renderSneakers(items) {
-  items.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    card.innerHTML = `
-      <div class="card-img-container">
-        <img src="${item.image_url}" alt="${item.name}" loading="lazy" />
-      </div>
-      <div class="card-body">
-        <span class="card-brand">${item.brand}</span>
-        <h3 class="card-title">${item.name}</h3>
-        <div class="card-footer">
-          <span class="card-price">$${item.price}</span>
-        </div>
-      </div>
-    `;
-
-    sneakersGrid.appendChild(card);
-  });
-}
-
-function showError(msg) {
-  errorMessage.textContent = msg;
-  errorMessage.classList.remove('hidden');
-}
