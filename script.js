@@ -1,6 +1,6 @@
 function obtenerZapatillas() {
-  var contenedor = document.getElementById("catalogo");
-  var textoBusqueda = document.getElementById("buscador").value;
+  let contenedor = document.getElementById("catalogo");
+  let textoBusqueda = document.getElementById("buscador").value;
 
   contenedor.innerHTML = '<p class="sin-resultados">Cargando datos de la API...</p>';
 
@@ -10,15 +10,15 @@ function obtenerZapatillas() {
     })
     .then(function(datos) {
       contenedor.innerHTML = "";
-      var productos = datos.products;
+      let productos = datos.products;
 
       if (productos.length === 0) {
         contenedor.innerHTML = '<p class="sin-resultados">No se encontraron productos en la API.</p>';
         return;
       }
 
-      for (var i = 0; i < productos.length; i++) {
-        var item = productos[i];
+      for (let i = 0; i < productos.length; i++) {
+        let item = productos[i];
 
         contenedor.innerHTML += 
           '<div class="tarjeta">' +
@@ -29,7 +29,7 @@ function obtenerZapatillas() {
           '</div>';
       }
     })
-    .catch(function(error) {
-      contenedor.innerHTML = '<p class="sin-resultados">Error al conectar con la API.</p>';
+    .catch((error) => {
+      console.error('Error al leer archivo:', error);
     });
 }
